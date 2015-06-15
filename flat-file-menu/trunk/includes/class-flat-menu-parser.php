@@ -1,23 +1,16 @@
 <?php
+namespace Undefined;
 /**
  * Define the json functionality
  *
+ * @since      0.0.1
  * @link       http://weareundefined.be
- * @since      0.0.1
  *
- * @package    Flat_Menu
- * @subpackage Flat_Menu/includes
- */
-
-/**
- * Define the json functionality
- *
- * @since      0.0.1
  * @package    Flat_Menu
  * @subpackage Flat_Menu/includes
  * @author     Vincent Peters <vincent@unde.fined.io>
  */
-class Flat_Menu_Parser
+class FlatMenuParser
 {
     /**
      * This variables stores all menu's
@@ -36,14 +29,29 @@ class Flat_Menu_Parser
     protected $json;
 
     /**
+     * Stores the language class
+     *
+     * @since    0.0.1
+     * @access   protected
+     */
+    protected $language;
+
+    /**
      * Constructor
      *
      * @since    0.0.1
      */
     public function __construct()
     {
-        $this->load_dependencies();
+        $this->loadDependencies();
+
+        add_action('init', [$this, 'fetchMenu']);
+    }
+
+    public function fetchMenu()
+    {
         $this->getJson();
+        $this->translate();
     }
 
     /**
@@ -51,10 +59,13 @@ class Flat_Menu_Parser
      *
      * @since    0.0.1
      */
-    private function load_dependencies()
+    private function loadDependencies()
     {
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-flat-menu-json.php';
-        $this->json = new Flat_Menu_Json();
+        $this->json = new FlatMenuJson();
+
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-flat-menu-multilanguage.php';
+        $this->language = new FlatMenuMultilanguage();
     }
 
     /**
@@ -68,10 +79,20 @@ class Flat_Menu_Parser
     }
 
     /**
+     * Get the raw json data from teh files
+     *
+     * @since    0.0.1
+     */
+    private function translate()
+    {
+        $this->menus = $this->language->traslate($this->menus);
+    }
+
+    /**
      * Return the requested menu data
      *
      * @param   $slug
-     * @return  bool / array
+     * @return  mixed
      * @since    0.0.1
      */
     public function get($slug)

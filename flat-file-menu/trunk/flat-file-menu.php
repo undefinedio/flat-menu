@@ -1,29 +1,25 @@
 <?php
+namespace Undefined;
 
-/**
- * The plugin bootstrap file
- *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
- *
- * @link              http://weareundefined.be
- * @since             0.0.1
- * @package           Flat_Menu
- *
- * @wordpress-plugin
- * Plugin Name:       Flat File Menu
- * Plugin URI:        http://weareundefined.be
- * Description:       A flat file solution for Wordpress Menu's
- * Version:           0.0.1
- * Author:            Undefined
- * Author URI:        http://weareundefined.be
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       undefined
- * Domain Path:       /languages
- */
+    /**
+     * The Flat File Menu Wordpress Solution
+     *
+     * @link              http://weareundefined.be
+     * @since             0.0.1
+     * @package           Flat_Menu
+     *
+     * @wordpress-plugin
+     * Plugin Name:       Flat File Menu
+     * Plugin URI:        http://weareundefined.be
+     * Description:       A flat file solution for Wordpress Menu's
+     * Version:           0.0.1
+     * Author:            Undefined
+     * Author URI:        http://weareundefined.be
+     * License:           GPL-2.0+
+     * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+     * Text Domain:       undefined
+     * Domain Path:       /languages
+     */
 
 // If this file is called directly, abort.
 if (!defined('WPINC')) {
@@ -37,7 +33,7 @@ if (!defined('WPINC')) {
 function activate_Flat_Menu()
 {
     require_once plugin_dir_path(__FILE__) . 'includes/class-flat-menu-activator.php';
-    Flat_Menu_Activator::activate();
+    FlatMenuActivator::activate();
 }
 
 /**
@@ -47,7 +43,7 @@ function activate_Flat_Menu()
 function deactivate_Flat_Menu()
 {
     require_once plugin_dir_path(__FILE__) . 'includes/class-flat-menu-deactivator.php';
-    Flat_Menu_Deactivator::deactivate();
+    FlatMenuDeactivator::deactivate();
 }
 
 register_activation_hook(__FILE__, 'activate_Flat_Menu');
@@ -70,9 +66,22 @@ require plugin_dir_path(__FILE__) . 'includes/class-flat-menu.php';
  */
 function run_Flat_Menu()
 {
-
-    $plugin = new Flat_Menu();
+    $plugin = new FlatMenu();
     $plugin->run();
 }
 
 run_Flat_Menu();
+
+if (!function_exists('dd')) {
+    /**
+     * Debug Function
+     *
+     * @param $var
+     */
+    function dd($var)
+    {
+        echo "<pre>";
+        var_dump($var);
+        die();
+    }
+}

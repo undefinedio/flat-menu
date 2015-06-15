@@ -1,11 +1,6 @@
 inherit: true
 
 tools:
-  # PHP Code Coverage
-  php_code_coverage:
-    enabled: true
-    test_command: phpunit --colors --verbose
-
   # PHP Code Sniffer
   php_code_sniffer:
     config:

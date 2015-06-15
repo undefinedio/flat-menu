@@ -37,6 +37,15 @@ class Flat_Menu
     protected $Flat_Menu;
 
     /**
+     * Static class for the parser
+     *
+     * @since    0.0.1
+     * @access   static
+     * @var
+     */
+    static $parser;
+
+    /**
      * The current version of the plugin.
      *
      * @since    0.0.1
@@ -76,7 +85,7 @@ class Flat_Menu
      */
     static function get($slug, $as = 'array')
     {
-        return $slug;
+        return Self::$parser->get($slug);
     }
 
     /**
@@ -97,12 +106,13 @@ class Flat_Menu
      */
     private function load_dependencies()
     {
-
         /**
          * The class responsible for orchestrating the actions and filters of the
          * core plugin.
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-flat-menu-loader.php';
+
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-flat-menu-parser.php';
 
         /**
          * The class responsible for defining internationalization functionality
@@ -111,6 +121,7 @@ class Flat_Menu
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-flat-menu-i18n.php';
 
         $this->loader = new Flat_Menu_Loader();
+        Self::$parser = new Flat_Menu_Parser();
     }
 
     /**

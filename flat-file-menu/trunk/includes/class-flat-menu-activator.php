@@ -3,7 +3,7 @@
 /**
  * Fired during plugin activation
  *
- * @link       http://example.com
+ * @link       http://weareundefined.be
  * @since      0.0.1
  *
  * @package    Flat_Menu

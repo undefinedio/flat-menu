@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       http://example.com
+ * @link       http://weareundefined.be
  * @since      0.0.1
  *
  * @package    Flat_Menu

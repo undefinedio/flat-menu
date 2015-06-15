@@ -3,7 +3,7 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       http://example.com
+ * @link       http://weareundefined.be
  * @since      0.0.1
  *
  * @package    Flat_Menu

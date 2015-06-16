@@ -28,32 +28,32 @@ if (!defined('WPINC')) {
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-plugin-name-activator.php
+ * This action is documented in includes/cactivator.php
  */
-function activate_Flat_Menu()
+function activateFlatMenu()
 {
-    require_once plugin_dir_path(__FILE__) . 'includes/class-flat-menu-activator.php';
+    require_once plugin_dir_path(__FILE__) . 'includes/activator.php';
     FlatMenuActivator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-plugin-name-deactivator.php
+ * This action is documented in includes/deactivator.php
  */
-function deactivate_Flat_Menu()
+function deactivateFlatMenu()
 {
-    require_once plugin_dir_path(__FILE__) . 'includes/class-flat-menu-deactivator.php';
+    require_once plugin_dir_path(__FILE__) . 'includes/deactivator.php';
     FlatMenuDeactivator::deactivate();
 }
 
-register_activation_hook(__FILE__, 'activate_Flat_Menu');
-register_deactivation_hook(__FILE__, 'deactivate_Flat_Menu');
+register_activation_hook(__FILE__, 'activateFlatMenu');
+register_deactivation_hook(__FILE__, 'deactivateFlatMenu');
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path(__FILE__) . 'includes/class-flat-menu.php';
+require plugin_dir_path(__FILE__) . 'includes/flat-menu.php';
 
 /**
  * Begins execution of the plugin.
@@ -64,13 +64,13 @@ require plugin_dir_path(__FILE__) . 'includes/class-flat-menu.php';
  *
  * @since    0.0.1
  */
-function run_Flat_Menu()
+function runFlatMenu()
 {
     $plugin = new FlatMenu();
     $plugin->run();
 }
 
-run_Flat_Menu();
+runFlatMenu();
 
 if (!function_exists('dd')) {
     /**

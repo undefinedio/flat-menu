@@ -39,7 +39,7 @@ class FlatMenuJson
     {
         foreach (glob(get_template_directory() . "/menu/*.json") as $filename) {
             $json = json_decode(file_get_contents($filename), true);
-            $this->json_menus[ $json['name'] ] = $json['menu'];
+            $this->json_menus[ $json['name'] ] = $json;
         }
     }
 

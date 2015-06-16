@@ -37,4 +37,19 @@ class Wpml implements EngineInterface
     {
         return __($string);
     }
+
+    /**
+     * Returns the currently used language
+     *
+     * @return mixed
+     */
+    public function getLang()
+    {
+        global $sitepress;
+
+        return [
+            'current' => ICL_LANGUAGE_CODE,
+            'default' => $sitepress->get_default_language()
+        ];
+    }
 }

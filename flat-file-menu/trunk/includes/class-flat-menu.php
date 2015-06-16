@@ -1,5 +1,5 @@
 <?php
-
+namespace Undefined;
 /**
  * The core plugin class.
  *
@@ -9,21 +9,22 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
+ * @link       http://weareundefined.be
  * @since      0.0.1
+ *
  * @package    Flat_Menu
  * @subpackage Flat_Menu/includes
  * @author     Vincent Peters <vincent@unde.fined.io>
  */
-class Flat_Menu
+class FlatMenu
 {
-
     /**
      * The loader that's responsible for maintaining and registering all hooks that power
      * the plugin.
      *
      * @since    0.0.1
      * @access   protected
-     * @var      Flat_Menu_Loader $loader Maintains and registers all hooks for the plugin.
+     * @var      FlatMenuLoader $loader Maintains and registers all hooks for the plugin.
      */
     protected $loader;
 
@@ -69,8 +70,7 @@ class Flat_Menu
         $this->Flat_Menu = 'flat-file-menu';
         $this->version = '0.0.1';
 
-        $this->load_dependencies();
-        $this->set_locale();
+        $this->loadDependencies();
     }
 
     /**
@@ -83,7 +83,7 @@ class Flat_Menu
      * @since    0.0.1
      * @access   public static
      */
-    static function get($slug, $as = 'array')
+    static public function get($slug, $as = 'array')
     {
         return Self::$parser->get($slug);
     }
@@ -104,7 +104,7 @@ class Flat_Menu
      * @since    0.0.1
      * @access   private
      */
-    private function load_dependencies()
+    private function loadDependencies()
     {
         /**
          * The class responsible for orchestrating the actions and filters of the
@@ -114,32 +114,8 @@ class Flat_Menu
 
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-flat-menu-parser.php';
 
-        /**
-         * The class responsible for defining internationalization functionality
-         * of the plugin.
-         */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-flat-menu-i18n.php';
-
-        $this->loader = new Flat_Menu_Loader();
-        Self::$parser = new Flat_Menu_Parser();
-    }
-
-    /**
-     * Define the locale for this plugin for internationalization.
-     *
-     * Uses the Flat_Menu_i18n class in order to set the domain and to register the hook
-     * with WordPress.
-     *
-     * @since    0.0.1
-     * @access   private
-     */
-    private function set_locale()
-    {
-
-        $plugin_i18n = new Flat_Menu_i18n();
-        $plugin_i18n->set_domain($this->get_Flat_Menu());
-
-        $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
+        $this->loader = new FlatMenuLoader();
+        Self::$parser = new FlatMenuParser();
     }
 
     /**
@@ -159,7 +135,7 @@ class Flat_Menu
      * @since     0.0.1
      * @return    string    The name of the plugin.
      */
-    public function get_Flat_Menu()
+    public function getFlatMenu()
     {
         return $this->Flat_Menu;
     }
@@ -168,9 +144,9 @@ class Flat_Menu
      * The reference to the class that orchestrates the hooks with the plugin.
      *
      * @since     0.0.1
-     * @return    Flat_Menu_Loader    Orchestrates the hooks of the plugin.
+     * @return    FlatMenuLoader    Orchestrates the hooks of the plugin.
      */
-    public function get_loader()
+    public function getLoader()
     {
         return $this->loader;
     }
@@ -181,7 +157,7 @@ class Flat_Menu
      * @since     0.0.1
      * @return    string    The version number of the plugin.
      */
-    public function get_version()
+    public function getVersion()
     {
         return $this->version;
     }

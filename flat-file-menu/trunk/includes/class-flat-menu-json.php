@@ -1,23 +1,16 @@
 <?php
-/**
- * Used as parser for controlling the menu data
- *
- * @link       http://weareundefined.be
- * @since      0.0.1
- *
- * @package    Flat_Menu
- * @subpackage Flat_Menu/includes
- */
-
+namespace Undefined;
 /**
  * Define the json functionality
  *
  * @since      0.0.1
+ * @link       http://weareundefined.be
+ *
  * @package    Flat_Menu
  * @subpackage Flat_Menu/includes
  * @author     Vincent Peters <vincent@unde.fined.io>
  */
-class Flat_Menu_Json
+class FlatMenuJson
 {
     /**
      * This variables stores all the original menu data from json

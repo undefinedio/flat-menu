@@ -110,9 +110,9 @@ class FlatMenu
          * The class responsible for orchestrating the actions and filters of the
          * core plugin.
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-flat-menu-loader.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/loader.php';
 
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-flat-menu-parser.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/parser.php';
 
         $this->loader = new FlatMenuLoader();
         Self::$parser = new FlatMenuParser();

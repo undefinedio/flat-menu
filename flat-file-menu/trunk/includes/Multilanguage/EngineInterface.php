@@ -14,4 +14,6 @@ interface EngineInterface
     public function getId($id, $type);
 
     public function getString($string);
+
+    public function getLang();
 }

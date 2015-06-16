@@ -37,4 +37,17 @@ class PolylangEngine implements EngineInterface
     {
         return pll__($string);
     }
+
+    /**
+     * Returns the currently used language
+     *
+     * @return mixed
+     */
+    public function getLang()
+    {
+        return [
+            'current' => pll_current_language(),
+            'default' => pll_default_language()
+        ];
+    }
 }

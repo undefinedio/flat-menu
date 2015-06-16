@@ -1,9 +1,5 @@
 <?php
-namespace Undefined;
-
-use Undefined\MultiLanguage\PolylangEngine;
-use Undefined\MultiLanguage\Wpml;
-use Undefined\MultiLanguage\Polylang;
+namespace Undefined\MultiLanguage;
 
 /**
  * Used to return language correct parameters
@@ -33,9 +29,9 @@ class FlatMenuMultilanguage
     /**
      * Convert the menu in correct text domain strings and the correct object ID's
      *
+     * @since    0.0.1
      * @param $menus
      * @return mixed
-     * @since    0.0.1
      */
     public function traslate($menus)
     {
@@ -51,16 +47,18 @@ class FlatMenuMultilanguage
     /**
      * Convert the specific parameters to the language correct ones
      *
+     * @since    0.0.1
      * @param $menus
      * @return mixed
-     * @since    0.0.1
      */
     private function convertParameters($menus)
     {
         foreach ($menus as $menuSlug => $menu) {
-            foreach ($menu as $key => $menuItem) {
-                $menus[ $menuSlug ][ $key ] = $this->setId($menus[ $menuSlug ][ $key ]);
-                $menus[ $menuSlug ][ $key ] = $this->setString($menus[ $menuSlug ][ $key ]);
+            $menus[ $menuSlug ]['lang'] = $this->setLang();
+
+            foreach ($menu['menu'] as $key => $menuItem) {
+                $menus[ $menuSlug ]['menu'][ $key ] = $this->setId($menus[ $menuSlug ]['menu'][ $key ]);
+                $menus[ $menuSlug ]['menu'][ $key ] = $this->setString($menus[ $menuSlug ]['menu'][ $key ]);
             }
         }
 
@@ -70,13 +68,13 @@ class FlatMenuMultilanguage
     /**
      * Get the language specific ID
      *
+     * @since    0.0.1
      * @param $object
      * @return mixed
-     * @since    0.0.1
      */
     private function setId($object)
     {
-        if (!isset($object['type'])) {
+        if (!isset($object['type']) && !isset($object['link'])) {
             $object['type'] = $this->defaultType;
         }
 
@@ -85,6 +83,17 @@ class FlatMenuMultilanguage
         }
 
         return $object;
+    }
+
+    /**
+     * Add current language to object
+     *
+     * @since    0.0.1
+     * @return mixed
+     */
+    private function setLang()
+    {
+        return $this->engine->getLang();
     }
 
     /**
@@ -110,13 +119,13 @@ class FlatMenuMultilanguage
      */
     private function CheckEngine()
     {
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/MultiLanguage/EngineInterface.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'MultiLanguage/EngineInterface.php';
 
         if (function_exists('pll_get_post')) {
-            require_once plugin_dir_path(dirname(__FILE__)) . 'includes/MultiLanguage/PolylangEngine.php';
+            require_once plugin_dir_path(dirname(__FILE__)) . 'MultiLanguage/PolylangEngine.php';
             $this->engine = new PolylangEngine();
         } else if (function_exists('icl_object_id')) {
-            require_once plugin_dir_path(dirname(__FILE__)) . 'includes/MultiLanguage/Wpml.php';
+            require_once plugin_dir_path(dirname(__FILE__)) . 'MultiLanguage/Wpml.php';
             $this->engine = new Wpml();
         } else {
             $this->engine = false;

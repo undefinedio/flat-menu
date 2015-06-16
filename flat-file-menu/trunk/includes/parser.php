@@ -1,5 +1,8 @@
 <?php
 namespace Undefined;
+
+use Undefined\MultiLanguage\FlatMenuMultilanguage;
+
 /**
  * Define the json functionality
  *
@@ -52,6 +55,7 @@ class FlatMenuParser
     {
         $this->getJson();
         $this->translate();
+        $this->setLinks();
     }
 
     /**
@@ -61,10 +65,13 @@ class FlatMenuParser
      */
     private function loadDependencies()
     {
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-flat-menu-json.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/json.php';
         $this->json = new FlatMenuJson();
 
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-flat-menu-multilanguage.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/links.php';
+        $this->links = new FlatMenuLinks();
+
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/multilanguage/multilanguage.php';
         $this->language = new FlatMenuMultilanguage();
     }
 
@@ -76,6 +83,16 @@ class FlatMenuParser
     private function getJson()
     {
         $this->menus = $this->json->get();
+    }
+
+    /**
+     * Get the raw json data from teh files
+     *
+     * @since    0.0.1
+     */
+    private function setLinks()
+    {
+        $this->menus = $this->links->set($this->menus);
     }
 
     /**
@@ -98,7 +115,7 @@ class FlatMenuParser
     public function get($slug)
     {
         if (isset($this->menus[ $slug ])) {
-            return $this->menus[ $slug ];
+            return $this->menus[ $slug ]['menu'];
         } else {
             return false;
         }
